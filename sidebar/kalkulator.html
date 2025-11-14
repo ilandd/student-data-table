@@ -1,0 +1,333 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width-device-width, initial-scale=1.0"> 
+    <title>KALKULATOR</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-color: rgb(134, 168, 231);
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    
+    .kotak {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 320px;
+        margin: 20px auto;
+        border-radius: 20px;
+    }
+    
+    table {
+        width: 320px;
+        background-color: white;
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); 
+        border-spacing: 5px;
+        padding: 10px;
+    }
+    
+    table td {
+        border-radius: 20px;
+        width: 25%;
+    }
+    
+    table tr td.right {
+        margin-right: 5px;
+        padding-right: 10px;
+    }
+    
+    table tr td.left {
+        margin-left: 5px;
+        padding-left: 10px; 
+    }
+    
+    table tr.bottom td {
+        margin-bottom: 5px;
+        padding-bottom: 10px;
+    }
+    
+    table tr.top-row td {
+        margin-top: 10px; 
+        padding-top: 20px;
+    }
+    
+    #inputan-container {
+        position: relative;
+        height: 80px;
+        overflow: hidden;
+        border: 3px solid rgb(209, 209, 209);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(109, 109, 109, 0.5);
+        background-color: white;
+    }
+    
+    #inputan {
+        height: 100%;
+        width: 100%;
+        font-size: 24px;
+        text-align: right;
+        padding: 10px;
+        overflow-y: auto;
+        word-break: break-all;
+        white-space: pre-wrap;
+    }
+    
+    #inputan.error {
+        color: red;
+    }
+    
+    .scroll-indicator {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        font-size: 12px;
+    }
+    
+    button {
+        height: 50px;
+        width: 100%;
+        font-size: 2em;
+        border-radius: 20px;
+        border: none;
+        background-color: rgb(221, 238, 247);
+        box-shadow: 0 4px 8px rgba(51, 100, 163, 0.5);
+    }
+    
+    button:hover {
+        background-color: rgb(204, 219, 226);
+    }
+    
+    .btn-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .btn {
+        background-color: cornflowerblue;
+        border-radius: 20px;
+        padding: 10px 20px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+        font-size: 1em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .btn:hover {
+        background-color: rgb(87, 127, 202);
+    }
+    
+    .back-btn i {
+        margin-right: 5px;
+    }
+    
+    footer {
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+    }
+</style>
+<body>
+    <div class="kotak"> 
+        <table cellspacing="0"> 
+            <tr> 
+                <td colspan="4">
+                    <div id="inputan-container">
+                        <div id="inputan">0</div>
+                        <div class="scroll-indicator" id="scrollIndicator">▼</div>
+                    </div>
+                </td> 
+            </tr> 
+            <tr class="top-row"> 
+                <td class="left" colspan="2"><button onclick="tombol(this)">AC</button></td> 
+                <td><button onclick="tombol(this)">Del</button></td> 
+                <td class="right"><button onclick="tombol(this)">/</button></td> 
+            </tr>
+            <tr>
+                <td class="left" ><button onclick="tombol(this)">7</button></td> 
+                <td><button onclick="tombol(this)">8</button></td> 
+                <td><button onclick="tombol(this)">9</button></td> 
+                <td class="right"><button onclick="tombol(this)">*</button></td> 
+            </tr> 
+            <tr> 
+                <td class="left"><button  onclick="tombol(this)">4</button></td> 
+                <td><button onclick="tombol(this)">5</button></td> 
+                <td><button onclick="tombol(this)">6</button></td> 
+                <td class="right"><button onclick="tombol(this)">+</button></td> 
+            </tr> 
+            <tr> 
+                <td class="left"><button onclick="tombol(this)">1</button></td> 
+                <td><button onclick="tombol(this)">2</button></td> 
+                <td><button onclick="tombol(this)">3</button></td> 
+                <td class="right"><button onclick="tombol(this)">-</button></td> 
+            </tr> 
+            <tr class="bottom"> 
+                <td class="left" colspan="2"><button  onclick="tombol(this)">0</button></td> 
+                <td><button onclick="tombol(this)">.</button></td> 
+                <td class="right"><button onclick="tombol(this)">=</button></td> 
+            </tr>
+        </table>
+    </div>
+    
+    <div class="btn-container">
+        <a class="btn back-btn" href="../index.php">
+            <i class="fas fa-arrow-left"></i>Back
+        </a>
+    </div>
+    
+    <footer> 
+        <p>Copyright &copy; 2025 PPLG TEAM </p> 
+    </footer>
+
+    <script> 
+    var inputan = document.getElementById('inputan');
+    var scrollIndicator = document.getElementById('scrollIndicator');
+    var hasError = false;
+    var hasDecimalInCurrentNumber = false;
+    
+    function updateScrollIndicator() {
+        if (inputan.scrollHeight > inputan.clientHeight) {
+            scrollIndicator.style.display = 'block';
+        } else {
+            scrollIndicator.style.display = 'none';
+        }
+    }
+    
+    function resetDecimalFlag() {
+        hasDecimalInCurrentNumber = false;
+    }
+    
+    function checkDecimalInput() {
+        var currentText = inputan.innerHTML;
+        var operators = ['+', '-', '*', '/'];
+        var lastOperatorIndex = -1;
+        
+        for (var i = 0; i < operators.length; i++) {
+            var index = currentText.lastIndexOf(operators[i]);
+            if (index > lastOperatorIndex) {
+                lastOperatorIndex = index;
+            }
+        }
+        
+        var currentNumber = lastOperatorIndex >= 0 
+            ? currentText.substring(lastOperatorIndex + 1) 
+            : currentText;
+        
+        return currentNumber.includes('.');
+    }
+    
+    function tombol(obj) { 
+        var kondisi = obj.innerHTML; 
+        
+        if (hasError && kondisi !== "AC") {
+            inputan.innerHTML = "0";
+            inputan.classList.remove('error');
+            hasError = false;
+            hasDecimalInCurrentNumber = false;
+        }
+        
+        if (kondisi == "=") { 
+            try {
+                let expression = inputan.innerHTML;
+                
+                if (/[\+\-\*\/]$/.test(expression)) {
+                    throw new Error("Ekspresi tidak lengkap");
+                }
+                
+                let result = eval(expression);
+                
+                if (typeof result === 'number' && !isNaN(result)) {
+                    if (Number.isInteger(result)) {
+                        inputan.innerHTML = result.toString();
+                    } else {
+                        inputan.innerHTML = parseFloat(result.toPrecision(12)).toString();
+                    }
+                } else {
+                    throw new Error("Hasil tidak valid");
+                }
+                
+                hasDecimalInCurrentNumber = inputan.innerHTML.includes('.');
+            } catch (error) {
+                inputan.innerHTML = "Error";
+                inputan.classList.add('error');
+                hasError = true;
+                hasDecimalInCurrentNumber = false;
+            }
+        } else if (kondisi == "Del") { 
+            if (inputan.innerHTML.length > 1) {
+                if (inputan.innerHTML.slice(-1) === '.') {
+                    hasDecimalInCurrentNumber = false;
+                }
+                inputan.innerHTML = inputan.innerHTML.slice(0, -1);
+                
+                hasDecimalInCurrentNumber = checkDecimalInput();
+            } else {
+                inputan.innerHTML = "0";
+                hasDecimalInCurrentNumber = false;
+            }
+        } else if (kondisi == "AC") { 
+            inputan.innerHTML = "0";
+            inputan.classList.remove('error');
+            hasError = false;
+            hasDecimalInCurrentNumber = false;
+        } else if (kondisi === ".") {
+            if (!hasDecimalInCurrentNumber) {
+                if (inputan.innerHTML === "0" || inputan.innerHTML === "Error" || /[\+\-\*\/]$/.test(inputan.innerHTML)) {
+                    inputan.innerHTML += "0.";
+                } else {
+                    inputan.innerHTML += ".";
+                }
+                hasDecimalInCurrentNumber = true;
+            }
+        } else if (['+', '-', '*', '/'].includes(kondisi)) {
+            if (inputan.innerHTML === "0" || inputan.innerHTML === "Error") {
+                inputan.innerHTML = "0" + kondisi;
+            } else {
+                if (['+', '-', '*', '/'].includes(inputan.innerHTML.slice(-1))) {
+                    inputan.innerHTML = inputan.innerHTML.slice(0, -1) + kondisi;
+                } else {
+                    inputan.innerHTML += kondisi;
+                }
+            }
+            resetDecimalFlag();
+        } else { 
+            if (inputan.innerHTML == "0" || inputan.innerHTML == "Error") { 
+                inputan.innerHTML = kondisi; 
+            } else { 
+                inputan.innerHTML += kondisi; 
+            } 
+        }
+        
+        updateScrollIndicator();
+        
+        inputan.scrollTop = inputan.scrollHeight;
+    }
+    
+    updateScrollIndicator();
+</script> 
+</body>
+</html>
